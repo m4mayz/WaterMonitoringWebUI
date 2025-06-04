@@ -220,7 +220,7 @@
                 border-radius: 20px;
                 background: linear-gradient(145deg, #f8fafc, #edf2f7);
                 transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                border: 2px solid transparent;
+                border: 2px #4299e180 solid;
                 position: relative;
                 overflow: hidden;
             }
@@ -238,7 +238,17 @@
                     rgba(255, 255, 255, 0.3),
                     transparent
                 );
-                transition: left 0.5s ease;
+                animation: shimmer 2s infinite ease;
+                /* transition: left 0.5s ease; */
+            }
+
+            @keyframes shimmer {
+                0% {
+                    left: -100%;
+                }
+                100% {
+                    left: 100%;
+                }
             }
 
             .sensor-reading:hover::before {
