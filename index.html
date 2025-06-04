@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="water.png" />
         <title>Water Quality Monitor</title>
         <style>
             * {
@@ -776,12 +777,14 @@
                 });
             }
 
+            let lastOnlineTimer = null;
+            let lastOnlineValue = null;
+
             // Setup Firebase listeners
             function setupFirebaseListeners() {
                 // Device status listener
-                database.ref("/sensor/status").on("value", (snapshot) => {
-                    const status = snapshot.val();
-                    deviceOnline = status === "Online";
+                database.ref("/sensor/lastOnline").on("value", (snapshot) => {
+                    lastOnlineValue = snapshot.val();
                     updateDeviceStatus();
                 });
 
@@ -852,14 +855,52 @@
                 });
             }
 
+            // Fungsi untuk menghitung selisih waktu dalam format "x menit yang lalu"
+            function getTimeAgo(lastOnlineStr) {
+                if (!lastOnlineStr) return "";
+                const lastDate = new Date(
+                    lastOnlineStr.replace(" ", "T") + "+07:00"
+                );
+                const now = new Date();
+                const diffMs = now - lastDate;
+                if (isNaN(diffMs)) return "";
+
+                const diffSec = Math.floor(diffMs / 1000);
+                if (diffSec < 60) return `${diffSec} detik yang lalu`;
+                const diffMin = Math.floor(diffSec / 60);
+                if (diffMin < 60) return `${diffMin} menit yang lalu`;
+                const diffHour = Math.floor(diffMin / 60);
+                if (diffHour < 24) return `${diffHour} jam yang lalu`;
+                const diffDay = Math.floor(diffHour / 24);
+                return `${diffDay} hari yang lalu`;
+            }
+
             // Update device status UI
             function updateDeviceStatus() {
+                let online = false;
+                if (lastOnlineValue) {
+                    const lastDate = new Date(
+                        lastOnlineValue.replace(" ", "T") + "+07:00"
+                    );
+                    const now = new Date();
+                    const diffSec = (now - lastDate) / 1000;
+                    online = diffSec < 5;
+                }
+                deviceOnline = online;
+
                 if (deviceOnline) {
                     deviceStatus.className = "status-container status-online";
                     statusText.textContent = "Online";
                 } else {
                     deviceStatus.className = "status-container status-offline";
-                    statusText.textContent = "Offline";
+                    let lastOnlineInfo = "";
+                    if (lastOnlineValue) {
+                        lastOnlineInfo =
+                            "Terakhir Online: " + getTimeAgo(lastOnlineValue);
+                    }
+                    statusText.textContent =
+                        "Offline" +
+                        (lastOnlineInfo ? " (" + lastOnlineInfo + ")" : "");
                 }
             }
 
@@ -1067,13 +1108,20 @@
 
             // Update UI periodically
             function updateUI() {
+                // Update status dot (sudah ada)
                 setInterval(() => {
-                    // Add some visual feedback for active states
                     if (deviceOnline) {
                         const statusDot = document.querySelector(".status-dot");
                         if (statusDot) {
                             statusDot.style.animation = "blink 1.5s infinite";
                         }
+                    }
+                }, 1000);
+
+                // Update device status text setiap detik agar "Terakhir Online" selalu update
+                setInterval(() => {
+                    if (!deviceOnline && lastOnlineValue) {
+                        updateDeviceStatus();
                     }
                 }, 1000);
             }
