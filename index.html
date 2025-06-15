@@ -902,24 +902,10 @@
                         "Offline" +
                         (lastOnlineInfo ? " (" + lastOnlineInfo + ")" : "");
                 }
-                updateSensorUI(); // Tambahkan ini agar sensor ikut update saat status berubah
             }
 
             // Update sensor UI
             function updateSensorUI() {
-                if (!deviceOnline) {
-                    ppmValue.textContent = "";
-                    phValue.textContent = "";
-                    ppmReading.className = "sensor-reading";
-                    phReading.className = "sensor-reading";
-                    ppmStatus.textContent = "Device Offline";
-                    phStatus.textContent = "Device Offline";
-                    pumpBtn.disabled = true;
-                    pumpBtn.className = "pump-btn";
-                    pumpBtn.textContent = "💧 Alirkan Air";
-                    return;
-                }
-
                 // Update values
                 ppmValue.textContent = sensorData.ppm + " PPM";
                 phValue.textContent = sensorData.ph.toFixed(1);
@@ -1132,10 +1118,12 @@
                     }
                 }, 1000);
 
-                // Update device status text dan sensor setiap 6 detik
+                // Update device status text setiap detik agar "Terakhir Online" selalu update
                 setInterval(() => {
-                    updateDeviceStatus();
-                }, 6000);
+                    if (!deviceOnline && lastOnlineValue) {
+                        updateDeviceStatus();
+                    }
+                }, 1000);
             }
 
             // Initialize the application
