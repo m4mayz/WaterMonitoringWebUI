@@ -793,7 +793,8 @@
                     const ppm = snapshot.val();
                     if (ppm !== null) {
                         sensorData.ppm = ppm;
-                        updateSensorUI();
+                        // updateSensorUI(); // Hapus pemanggilan ini
+                        if (deviceOnline) updateSensorUI();
                     }
                 });
 
@@ -802,7 +803,8 @@
                     const ph = snapshot.val();
                     if (ph !== null) {
                         sensorData.ph = ph;
-                        updateSensorUI();
+                        // updateSensorUI(); // Hapus pemanggilan ini
+                        if (deviceOnline) updateSensorUI();
                     }
                 });
 
@@ -855,7 +857,7 @@
                 });
             }
 
-            // Fungsi untuk menghitung selisih waktu dalam format "x menit yang lalu"
+            // Fungsi untuk menghitung selisih waktu dalam format bahasa Inggris
             function getTimeAgo(lastOnlineStr) {
                 if (!lastOnlineStr) return "";
                 const lastDate = new Date(
@@ -866,41 +868,51 @@
                 if (isNaN(diffMs)) return "";
 
                 const diffSec = Math.floor(diffMs / 1000);
-                if (diffSec < 60) return `${diffSec} detik yang lalu`;
+                if (diffSec < 60) return `${diffSec}s ago`;
                 const diffMin = Math.floor(diffSec / 60);
-                if (diffMin < 60) return `${diffMin} menit yang lalu`;
+                if (diffMin < 60) return `${diffMin}m ago`;
                 const diffHour = Math.floor(diffMin / 60);
-                if (diffHour < 24) return `${diffHour} jam yang lalu`;
+                if (diffHour < 24) return `${diffHour}h ago`;
                 const diffDay = Math.floor(diffHour / 24);
-                return `${diffDay} hari yang lalu`;
+                return `${diffDay}d ago`;
             }
 
             // Update device status UI
             function updateDeviceStatus() {
                 let online = false;
+                let lastOnlineInfo = "";
                 if (lastOnlineValue) {
                     const lastDate = new Date(
                         lastOnlineValue.replace(" ", "T") + "+07:00"
                     );
                     const now = new Date();
                     const diffSec = (now - lastDate) / 1000;
-                    online = diffSec < 5;
+                    online = diffSec < 10; // Online jika < 10 detik
+                    lastOnlineInfo = getTimeAgo(lastOnlineValue);
                 }
                 deviceOnline = online;
 
                 if (deviceOnline) {
                     deviceStatus.className = "status-container status-online";
-                    statusText.textContent = "Online";
+                    statusText.textContent = lastOnlineInfo
+                        ? `Online`
+                        : "Online";
+                    updateSensorUI();
                 } else {
                     deviceStatus.className = "status-container status-offline";
-                    let lastOnlineInfo = "";
-                    if (lastOnlineValue) {
-                        lastOnlineInfo =
-                            "Terakhir Online: " + getTimeAgo(lastOnlineValue);
-                    }
-                    statusText.textContent =
-                        "Offline" +
-                        (lastOnlineInfo ? " (" + lastOnlineInfo + ")" : "");
+                    statusText.textContent = lastOnlineInfo
+                        ? `Offline ${lastOnlineInfo}`
+                        : "Offline";
+                    // Set sensor value dan status menjadi offline
+                    ppmValue.textContent = "";
+                    phValue.textContent = "";
+                    ppmReading.className = "sensor-reading";
+                    phReading.className = "sensor-reading";
+                    ppmStatus.textContent = "Device offline";
+                    phStatus.textContent = "Device offline";
+                    pumpBtn.disabled = true;
+                    pumpBtn.className = "pump-btn";
+                    pumpBtn.textContent = "💧 Alirkan Air";
                 }
             }
 
@@ -1120,9 +1132,8 @@
 
                 // Update device status text setiap detik agar "Terakhir Online" selalu update
                 setInterval(() => {
-                    if (!deviceOnline && lastOnlineValue) {
-                        updateDeviceStatus();
-                    }
+                    // Selalu update status device
+                    updateDeviceStatus();
                 }, 1000);
             }
 
