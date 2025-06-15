@@ -1132,10 +1132,10 @@
                     }
                 }, 1000);
 
-                // Update device status text dan sensor setiap detik agar "Terakhir Online" dan sensor selalu update
+                // Update device status text dan sensor setiap 10 detik
                 setInterval(() => {
                     updateDeviceStatus();
-                }, 1000);
+                }, 5000);
             }
 
             // Initialize the application
