@@ -73,7 +73,7 @@ function initApp() {
 
 // Load presets into dropdown
 function loadPresets() {
-    presetSelect.innerHTML = '<option value="">Pilih preset...</option>';
+    presetSelect.innerHTML = '<option value="">Choose preset...</option>';
     presets.forEach((preset, index) => {
         const option = document.createElement("option");
         option.value = index;
@@ -203,7 +203,7 @@ function updateDeviceStatus() {
         phStatus.textContent = "Device offline";
         pumpBtn.disabled = true;
         pumpBtn.className = "pump-btn";
-        pumpBtn.textContent = "💧 Alirkan Air";
+        pumpBtn.textContent = "💧 Flow the water!";
     }
 }
 
@@ -216,8 +216,8 @@ function updateSensorUI() {
     if (!currentPreset) {
         ppmReading.className = "sensor-reading";
         phReading.className = "sensor-reading";
-        ppmStatus.textContent = "Pilih preset terlebih dahulu";
-        phStatus.textContent = "Pilih preset terlebih dahulu";
+        ppmStatus.textContent = "Choose a preset first";
+        phStatus.textContent = "Choose a preset first";
         pumpBtn.disabled = true;
         pumpBtn.className = "pump-btn";
         return;
@@ -256,14 +256,14 @@ function updateSensorUI() {
     if (canPump) {
         if (pumpActive) {
             pumpBtn.className = "pump-btn active";
-            pumpBtn.textContent = "⏹️ Berhenti Alirkan Air";
+            pumpBtn.textContent = "⏹️ Stop";
         } else {
             pumpBtn.className = "pump-btn ready";
-            pumpBtn.textContent = "💧 Alirkan Air";
+            pumpBtn.textContent = "💧 Flow the water!";
         }
     } else {
         pumpBtn.className = "pump-btn";
-        pumpBtn.textContent = "💧 Alirkan Air";
+        pumpBtn.textContent = "💧 Flow the water!";
     }
 }
 
@@ -285,7 +285,7 @@ function openModal(mode) {
     editingPreset = null;
 
     if (mode === "add") {
-        modalTitle.textContent = "Tambah Preset";
+        modalTitle.textContent = "Add new preset";
         document.getElementById("deleteBtn").style.display = "none";
         presetForm.reset();
     } else if (mode === "edit" && currentPreset) {

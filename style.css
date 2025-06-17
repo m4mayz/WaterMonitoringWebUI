@@ -293,7 +293,7 @@ body {
 
 .pump-btn {
     padding: 20px 40px;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 600;
     border: none;
     border-radius: 20px;
@@ -353,76 +353,96 @@ body {
 
 .modal-content {
     background: white;
-    margin: 10% auto;
-    padding: 30px;
+    margin: 6% auto;
+    padding: 32px 28px 24px 28px;
     border-radius: 20px;
-    width: 90%;
-    max-width: 500px;
+    width: 95%;
+    max-width: 420px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .modal-title {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 700;
     color: #2c5282;
+    margin: 0;
 }
 
 .close {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: bold;
     cursor: pointer;
     color: #a0aec0;
     transition: color 0.3s ease;
+    margin-left: 10px;
 }
 
 .close:hover {
     color: #2c5282;
 }
 
+#presetForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .form-label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 600;
     color: #2c5282;
+    font-size: 0.98rem;
 }
 
 .form-input {
     width: 100%;
-    padding: 12px 16px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px 14px;
     border: 2px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 1rem;
     transition: all 0.3s ease;
+    background: #f8fafc;
 }
 
 .form-input:focus {
     outline: none;
     border-color: #4299e1;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.08);
 }
 
 .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    display: flex;
+    gap: 14px;
+}
+
+.form-row .form-group {
+    flex: 1;
 }
 
 .modal-actions {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
-    margin-top: 30px;
+    margin-top: 18px;
 }
 
 .btn-cancel {
@@ -440,6 +460,71 @@ body {
     color: white;
 }
 
+@media (max-width: 600px) {
+    .modal-content {
+        /* Adjusted padding to be more consistent with the web and ensure readability */
+        padding: 20px;
+        width: 90%; /* Use a percentage for width to be flexible */
+        margin: 10vh auto; /* Center vertically, adjust as needed */
+        max-width: 350px; /* Limit max-width to prevent it from getting too wide on slightly larger mobile screens */
+    }
+
+    .modal-header {
+        margin-bottom: 15px; /* Slightly reduce margin */
+        padding-bottom: 6px;
+    }
+
+    .modal-title {
+        font-size: 1.2rem; /* Slightly larger title for better readability */
+    }
+
+    .close {
+        font-size: 1.5rem; /* Slightly smaller close button */
+    }
+
+    #presetForm {
+        gap: 15px; /* Consistent gap between form groups */
+    }
+
+    .form-group {
+        margin-bottom: 0; /* Already 0, just confirming */
+    }
+
+    .form-label {
+        font-size: 0.9rem; /* Slightly smaller label font size */
+        margin-bottom: 5px; /* Adjust margin below label */
+    }
+
+    .form-input {
+        padding: 10px 12px; /* Slightly reduced padding */
+        font-size: 0.95rem; /* Slightly reduced font size for inputs */
+        border-radius: 8px; /* Slightly smaller border-radius */
+    }
+
+    .form-row {
+        flex-direction: row; /* Maintain row layout for PPM min/max and pH min/max */
+        gap: 10px; /* Adjust gap between elements in a row */
+    }
+
+    .form-row .form-group {
+        flex: 1; /* Ensure they take equal space */
+    }
+
+    .modal-actions {
+        margin-top: 20px; /* Adjust margin above buttons */
+        gap: 8px; /* Slightly smaller gap between action buttons */
+        justify-content: flex-end; /* Keep buttons to the right */
+    }
+
+    .btn-cancel,
+    .btn-delete,
+    .btn-apply {
+        padding: 10px 15px; /* Adjusted button padding */
+        font-size: 0.9rem; /* Adjusted button font size */
+        border-radius: 10px; /* Adjusted button border-radius */
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .main-content {
@@ -455,14 +540,14 @@ body {
     }
 
     .preset-label {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: 600;
         color: #2c5282;
         margin-bottom: 15px;
     }
     .header h1 {
         color: #2c5282;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         margin-bottom: 10px;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }

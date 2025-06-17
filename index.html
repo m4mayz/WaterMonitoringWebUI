@@ -6,7 +6,6 @@
         <link rel="icon" type="image/x-icon" href="water.png" />
         <title>Water Quality Monitor</title>
         <link rel="stylesheet" href="style.css" />
-        <!-- CSS dipindahkan ke style.css -->
     </head>
     <body>
         <div class="water-bg">
@@ -27,22 +26,24 @@
             <div class="main-content">
                 <!-- Preset Section -->
                 <div class="preset-section">
-                    <div class="preset-label">Pilih preset kegunaan air</div>
+                    <div class="preset-label">
+                        Choose the water usability preset for:
+                    </div>
                     <div class="preset-controls">
                         <select class="preset-dropdown" id="presetSelect">
-                            <option value="">Pilih preset...</option>
+                            <option value="">Choose preset...</option>
                         </select>
                     </div>
                     <div class="preset-controls">
                         <button class="btn btn-add" id="addPresetBtn">
-                            ➕ Tambah
+                            ➕ Add New Preset
                         </button>
                         <button
                             class="btn btn-edit"
                             id="editPresetBtn"
                             disabled
                         >
-                            ✏️ Edit
+                            ✏️ Edit Preset
                         </button>
                     </div>
                 </div>
@@ -74,10 +75,11 @@
             <!-- Pump Section -->
             <div class="pump-section">
                 <button class="pump-btn" id="pumpBtn" disabled>
-                    💧 Alirkan Air
+                    💧 Flow the water!
                 </button>
-                <div style="color: #666; font-size: 0.9rem">
-                    Tombol akan aktif ketika kualitas air sesuai preset
+                <div style="color: #666; font-size: 0.8rem">
+                    The button will activate when the water quality is as
+                    preset.
                 </div>
             </div>
 
@@ -91,20 +93,20 @@
         <div id="presetModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="modalTitle">Tambah Preset</h2>
+                    <h2 class="modal-title" id="modalTitle">Add new preset</h2>
                     <span class="close" id="closeModal">&times;</span>
                 </div>
 
                 <form id="presetForm">
                     <div class="form-group">
                         <label class="form-label" for="presetName"
-                            >Nama Preset</label
+                            >Preset Name</label
                         >
                         <input
                             type="text"
                             class="form-input"
                             id="presetName"
-                            placeholder="Contoh: Hidroponik"
+                            placeholder="Example: Hidroponik"
                             required
                         />
                     </div>
@@ -172,7 +174,7 @@
                             class="btn btn-cancel"
                             id="cancelBtn"
                         >
-                            Batal
+                            Cancel
                         </button>
                         <button
                             type="button"
@@ -180,10 +182,10 @@
                             id="deleteBtn"
                             style="display: none"
                         >
-                            Hapus
+                            Delete Preset
                         </button>
                         <button type="submit" class="btn btn-apply">
-                            Simpan
+                            Save
                         </button>
                     </div>
                 </form>
