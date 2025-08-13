@@ -3,14 +3,13 @@
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDAS96l1iThB0Tn1GHsdZ3ZHzyP34eihSw",
-    authDomain: "belajar123-b122f.firebaseapp.com",
-    databaseURL: "https://belajar123-b122f-default-rtdb.firebaseio.com",
-    projectId: "belajar123-b122f",
-    storageBucket: "belajar123-b122f.firebasestorage.app",
-    messagingSenderId: "914587291348",
-    appId: "1:914587291348:web:f910eb17066ca5d810b541",
-    measurementId: "G-EXEB2NG2JJ",
+    apiKey: "AIzaSyBTZj1bgHDSSFRl_GLr7RMetZatFC_Zraw",
+    authDomain: "waterqualitymonitor-1bd0f.firebaseapp.com",
+    projectId: "waterqualitymonitor-1bd0f",
+    storageBucket: "waterqualitymonitor-1bd0f.firebasestorage.app",
+    messagingSenderId: "497357415360",
+    appId: "1:497357415360:web:94fe9694fddbb7fea29e25",
+    measurementId: "G-YVQ1G1TFZ3",
 };
 
 // Initialize Firebase
