@@ -5,6 +5,8 @@
 const firebaseConfig = {
     apiKey: "AIzaSyBTZj1bgHDSSFRl_GLr7RMetZatFC_Zraw",
     authDomain: "waterqualitymonitor-1bd0f.firebaseapp.com",
+    databaseURL:
+        "https://waterqualitymonitor-1bd0f-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "waterqualitymonitor-1bd0f",
     storageBucket: "waterqualitymonitor-1bd0f.firebasestorage.app",
     messagingSenderId: "497357415360",
